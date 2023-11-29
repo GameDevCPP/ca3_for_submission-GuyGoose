@@ -59,7 +59,7 @@ public:
 
 	static float getTileSize();
 
-	static void setTextureMap(std::string path);
+	static void setTextureMap(const std::string& path);
 
 protected:
 	static std::unique_ptr<Tile[]> _tiles;

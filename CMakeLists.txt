@@ -14,7 +14,7 @@ SET(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${OUTPUT_DIRECTORY})
 add_custom_target(copy_resources ALL COMMAND ${CMAKE_COMMAND} 
   -E copy_directory
     "${PROJECT_SOURCE_DIR}/res"
-    ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/$<CONFIGURATION>/res
+    ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/res
 )
 
 #### Add External Dependencies ####

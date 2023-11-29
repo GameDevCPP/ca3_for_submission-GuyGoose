@@ -34,7 +34,7 @@ IntRect LevelSystem::floorTextureRect = { Vector2i(0, 0), Vector2i(32, 32) };
 Texture LevelSystem::wallTexture;
 IntRect LevelSystem::wallTextureRect = { Vector2i(0, 0), Vector2i(32, 32) };
 
-void LevelSystem::setTextureMap(string path) {
+void LevelSystem::setTextureMap(const string& path) {
 	floorTexture.loadFromFile(path);
 }
 
@@ -182,7 +182,7 @@ void LevelSystem::buildSprites(bool optimise) {
 		}
 		else
 		{
-			wallTexture.loadFromFile("res/assets/tiles/tileset.png");
+			wallTexture.loadFromFile("res/img/tileset.png");
 			s->setTexture(&wallTexture);
 			s->setTextureRect(wallTextureRect);
 		}
