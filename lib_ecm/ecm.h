@@ -88,6 +88,18 @@ public:
 	std::vector<std::shared_ptr<Component>> getComponents();
 	void setComponents(std::vector<std::shared_ptr<Component>> components);
 
+    // GetComponent (Getting a specific component)
+    template <typename T>
+    std::shared_ptr<T> getComponent() {
+        static_assert(std::is_base_of<Component, T>::value, "T != component");
+        for (auto c : _components) {
+            if (typeid(*c) == typeid(T)) {
+                return std::dynamic_pointer_cast<T>(c);
+            }
+        }
+        return nullptr;
+    }
+
 	template <typename T, typename... Targs>
 	std::shared_ptr<T> addComponent(Targs... params) {
 		static_assert(std::is_base_of<Component, T>::value, "T != component");

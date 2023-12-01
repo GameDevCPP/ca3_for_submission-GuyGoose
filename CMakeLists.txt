@@ -64,7 +64,15 @@ target_link_libraries(lib_ecm PRIVATE lib_maths)
 file(GLOB_RECURSE SOURCES Drop-Pod/*.cpp Drop-Pod/*.h)
 file(GLOB_RECURSE CMPNTS Drop-Pod/components/*.cpp Drop-Pod/components/*.h)
 file(GLOB_RECURSE SCENES Drop-Pod/scenes/*.cpp Drop-Pod/scenes/*.h)
-add_executable(Drop_Pod ${SOURCES} ${RESOURCE_FILES})
+add_executable(Drop_Pod ${SOURCES} ${RESOURCE_FILES}
+        Drop-Pod/platformer_main.cpp
+        Drop-Pod/components/cmp_player_physics.cpp
+        Drop-Pod/components/cmp_physics.cpp
+        Drop-Pod/components/cmp_shotgun.cpp
+        Drop-Pod/components/cmp_shotgun.h
+        Drop-Pod/components/cmp_bullet.h
+        Drop-Pod/components/cmp_bullet.cpp
+)
 source_group("components" FILES ${CMPNTS})
 source_group("resources" FILES ${RESOURCE_FILES})
 #target_include_directories(Drop_Pod SYSTEM PRIVATE ${SFML_INCS} ${B2D_INCS})
