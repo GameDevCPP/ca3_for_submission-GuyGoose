@@ -94,3 +94,4 @@ PlayerPhysicsComponent::PlayerPhysicsComponent(Entity* p,
   //Bullet items have higher-res collision detection
   _body->SetBullet(true);
 }
+

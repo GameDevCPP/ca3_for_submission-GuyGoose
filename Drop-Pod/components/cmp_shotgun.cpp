@@ -28,13 +28,15 @@ void ShotgunComponent::update(double dt) {
     float angle = atan2(mousePos.y - playerPos.y, mousePos.x - playerPos.x);
     // Convert the angle to degrees.
     angle = angle * 180 / 3.14159265;
+
     // Set the rotation of the shotgun to the angle.
     _parent->setRotation(angle);
-
+    _parent->getComponent<ShapeComponent>()->setRotation(angle);
+    cout<<angle<<endl;
 
 
     // Spin the shotgun. For testing purposes.
-    //_parent->setRotation(_parent->getRotation() + 5);
+//    _parent->setRotation(_parent->getRotation() + 5);
 }
 
 // Get the rotation of the shotgun.

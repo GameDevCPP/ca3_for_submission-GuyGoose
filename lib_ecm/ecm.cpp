@@ -60,6 +60,8 @@ void Entity::setRotation(float _rotation) { Entity::_rotation = _rotation; }
 
 bool Entity::isAlive() const { return _alive; }
 
+
+
 void Entity::setAlive(bool _alive) { Entity::_alive = _alive; }
 
 void Entity::setForDelete() {

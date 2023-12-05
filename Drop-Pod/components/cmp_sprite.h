@@ -39,6 +39,9 @@ public:
 	template <typename T, typename... Targs> void setShape(Targs... params) {
 		_shape.reset(new T(params...));
 	}
+    void setRotation(float rotation);
+    void setScale(sf::Vector2f scale);
+    sf::Vector2<float> getScale() const;
 };
 
 struct Frame {

@@ -42,6 +42,18 @@ void ShapeComponent::render() { Renderer::queue(_shape.get()); }
 
 Shape& ShapeComponent::getShape() const { return *_shape; }
 
+void ShapeComponent::setScale(sf::Vector2f scale)
+{
+    _shape->setScale(scale);
+}
+
+ Vector2<float> ShapeComponent::getScale() const { return _shape->getScale();}
+
+void ShapeComponent::setRotation(float rotation)
+{
+    _shape->setRotation(rotation);
+}
+
 ShapeComponent::ShapeComponent(Entity* p)
 	: Component(p), _shape(make_shared<CircleShape>()) {}
 

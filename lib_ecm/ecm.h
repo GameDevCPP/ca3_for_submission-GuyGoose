@@ -38,6 +38,8 @@ struct EntityManager {
 		find(const std::vector<std::string>& tags) const;
 
 	void addEntity(std::shared_ptr<Entity> entity);
+
+    //static std::shared_ptr<Entity> getPlayer();
 };
 
 class Entity {
@@ -84,6 +86,9 @@ public:
 	bool isVisible() const;
 
 	void setVisible(bool _visible);
+
+    // vector<shared_ptr<Entity>> EntityManager::getEntities() const { return list; }
+
 
 	std::vector<std::shared_ptr<Component>> getComponents();
 	void setComponents(std::vector<std::shared_ptr<Component>> components);
