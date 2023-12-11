@@ -25,6 +25,15 @@ public:
 	static sf::Texture wallTexture;
 	static sf::IntRect wallTextureRect;
 
+    static sf::Texture lightTexture;
+    static sf::IntRect lightTextureRect;
+
+    static sf::Texture startTexture;
+    static sf::IntRect startTextureRect;
+
+    static sf::Texture endTexture;
+    static sf::IntRect endTextureRect;
+
 	enum TILES {
 		EMPTY = ' ',
 		START = 's',

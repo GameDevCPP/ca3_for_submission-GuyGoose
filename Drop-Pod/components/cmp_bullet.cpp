@@ -59,7 +59,7 @@ void Bullet::init() {
         b.setPosition(Vector2f(-1000, -1000));
         b.setTexture(*spriteTexture);
         b.setTextureRect(IntRect(Vector2i(0, 0), Vector2i(32, 32)));
-        b.setOrigin(Vector2f(spriteTexture->getSize().x * 0.5, spriteTexture->getSize().y * 0.5));
+        b.setOrigin(Vector2f(spriteTexture->getSize().x * 0.5 - 15, spriteTexture->getSize().y * 0.5));
         b.setAngle(0.f, b);
         b.mousePos = Vector2f(0, 0);
         b.isVisible = false;

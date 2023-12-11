@@ -34,6 +34,15 @@ IntRect LevelSystem::floorTextureRect = { Vector2i(64, 0), Vector2i(32, 32) };
 Texture LevelSystem::wallTexture;
 IntRect LevelSystem::wallTextureRect = { Vector2i(0, 0), Vector2i(32, 32) };
 
+Texture LevelSystem::startTexture;
+IntRect LevelSystem::startTextureRect = { Vector2i(96, 32), Vector2i(32, 32) };
+
+Texture LevelSystem::endTexture;
+IntRect LevelSystem::endTextureRect = { Vector2i(96, 0), Vector2i(32, 32) };
+
+Texture LevelSystem::lightTexture;
+IntRect LevelSystem::lightTextureRect = { Vector2i(32, 32), Vector2i(32, 32) };
+
 void LevelSystem::setTextureMap(const string& path) {
 	floorTexture.loadFromFile(path);
 }
@@ -180,7 +189,22 @@ void LevelSystem::buildSprites(bool optimise) {
             floorTexture.loadFromFile("res/img/tileset.png");
 			s->setTexture(&floorTexture);
 			s->setTextureRect(floorTextureRect);
-		}
+		} else if (getTileAt(t.p) == 's')
+        {
+            startTexture.loadFromFile("res/img/tileset.png");
+            s->setTexture(&startTexture);
+            s->setTextureRect(startTextureRect);
+        } else if (getTileAt(t.p) == 'e')
+        {
+            endTexture.loadFromFile("res/img/tileset.png");
+            s->setTexture(&endTexture);
+            s->setTextureRect(endTextureRect);
+        } else if (getTileAt(t.p) == 'l')
+        {
+            lightTexture.loadFromFile("res/img/tileset.png");
+            s->setTexture(&lightTexture);
+            s->setTextureRect(lightTextureRect);
+        }
 		else
 		{
 			wallTexture.loadFromFile("res/img/tileset.png");

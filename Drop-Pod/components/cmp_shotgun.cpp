@@ -33,7 +33,7 @@ void ShotgunComponent::update(double dt) {
 
     // Set the rotation of the shotgun to the angle.
     _parent->setRotation(angle);
-    _parent->getComponent<ShapeComponent>()->setRotation(angle);
+    _parent->getComponent<SpriteComponent>()->getSprite().setRotation(angle);
     //cout<<angle<<endl;
 
     // If the player presses the left mouse button, fire the shotgun.

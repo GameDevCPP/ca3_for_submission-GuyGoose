@@ -24,7 +24,7 @@ void Loading_update(float dt, const Scene* const scn) {
 		loading = false;
 	}
 	else {
-		loadingspinner += 400.0f * dt;
+		loadingspinner += 800.0f * dt;
 		loadingTime += dt;
 	}
 }
@@ -32,7 +32,7 @@ void Loading_render() {
 	// cout << "Eng: Loading Screen Render\n";
 
 	static Sprite background;
-	auto backTexture = Resources::get<Texture>("Space_Background.png");
+	auto backTexture = Resources::get<Texture>("Background.png");
 	background.setTexture(*backTexture);
 
 	static CircleShape octagon(100);
@@ -40,7 +40,7 @@ void Loading_render() {
 	octagon.setRotation(deg2rad(loadingspinner));
 	octagon.setPosition(Vcast<float>(Engine::getWindowSize()) * .5f);
 	auto tex = new Texture();
-	tex->loadFromFile("res/img/Terran.png");
+	tex->loadFromFile("res/img/Electric.png");
 	octagon.setFillColor(Color(255, 255, 255, min(255.f, 40.f * loadingTime)));
 	octagon.setTexture(tex);
 
