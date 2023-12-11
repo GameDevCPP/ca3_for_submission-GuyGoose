@@ -98,6 +98,8 @@ void Engine::Start(unsigned int width, unsigned int height,
 	const std::string& gameName, Scene* scn) {
 	RenderWindow window(VideoMode(width, height), gameName);
 	//window.setVerticalSyncEnabled(true);
+    // Set the frame rate to 60 fps
+    window.setFramerateLimit(60);
 	_gameName = gameName;
 	_window = &window;
 	Renderer::initialise(window);
@@ -115,6 +117,8 @@ void Engine::Start(unsigned int width, unsigned int height,
 		}
 
 		window.clear();
+        // set background color to #4c4139
+        window.clear(sf::Color(76, 65, 57));
 		Update();
 		Render(window);
 		window.display();
@@ -152,7 +156,7 @@ void Engine::moveView(Vector2f movement) {
 void Engine::changeResolution(int x, int y)
 {
 	Vector2f _newResolution(x, y);
-	_window->create(VideoMode(_newResolution.x, _newResolution.y), "Drop Pod");
+	_window->create(VideoMode(_newResolution.x, _newResolution.y), "Bulb");
 }
 
 void Engine::ChangeScene(Scene* s) {
@@ -172,6 +176,8 @@ void Engine::ChangeScene(Scene* s) {
 		loading = true;
 	}
 }
+
+
 
 sf::Vector2f Engine::flocking(Entity* thisEnemy, Vector2f toPlayer)
 {

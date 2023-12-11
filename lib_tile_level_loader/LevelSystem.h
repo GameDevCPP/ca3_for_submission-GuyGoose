@@ -30,6 +30,7 @@ public:
 		START = 's',
 		END = 'e',
 		WALL = 'w',
+        LIGHT = 'l',
 		ENEMY = 'n',
 		WAYPOINT = '+',
 		FLOOR = 'f'

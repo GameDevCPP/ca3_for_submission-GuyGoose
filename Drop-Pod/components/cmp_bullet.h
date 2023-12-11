@@ -5,19 +5,36 @@
 #include "ecm.h"
 #include <Box2D/Dynamics/b2Body.h>
 
-class BulletComponent : public Component {
+class Bullet : sf::Sprite {
 protected:
-    int bulletSpeed = 1000;
+  void _update(const double dt);
+  bool isVisible;
+  sf::Vector2f mousePos;
+  float angle;
 
 public:
-    BulletComponent() = delete;
+    static void update(const double dt);
+    static void render();
+    static void fire(const sf::Vector2f& pos);
+    static void init();
+    static void setAngle(float a, Bullet& b);
 
-    explicit BulletComponent(Entity* p);
+    ~Bullet() = default;
+    Bullet();
+};
 
+class ShootingComponent : public Component {
+protected:
+    std::vector<Bullet> bullets;
+    unsigned int bulletCount;
+    float angleshot;
+
+public:
+    ShootingComponent() = delete;
+
+    explicit ShootingComponent(Entity* p);
+
+    void Fire();
     void update(double dt) override;
-
-    // Implement the render method
     void render() override;
-
-    ~BulletComponent() override = default;
 };

@@ -2,6 +2,7 @@
 // Rotates to point at the mouse.
 
 #include "cmp_shotgun.h"
+#include "cmp_bullet.h"
 #include <LevelSystem.h>
 #include <engine.h>
 #include <SFML/Window/Keyboard.hpp>
@@ -9,6 +10,7 @@
 #include <SFML/Window/Window.hpp>
 #include <iostream>
 #include <math.h>
+#include <thread>
 
 using namespace std;
 using namespace sf;
@@ -32,7 +34,18 @@ void ShotgunComponent::update(double dt) {
     // Set the rotation of the shotgun to the angle.
     _parent->setRotation(angle);
     _parent->getComponent<ShapeComponent>()->setRotation(angle);
-    cout<<angle<<endl;
+    //cout<<angle<<endl;
+
+    // If the player presses the left mouse button, fire the shotgun.
+    fireTime -= dt;
+
+    if (fireTime <= 0 && Mouse::isButtonPressed(Mouse::Left)) {
+        for (int i = 0; i < 5; ++i) {
+            // Fire a bullet.
+            _parent->GetCompatibleComponent<ShootingComponent>()[0]->Fire();
+        }
+        fireTime = 0.5f;
+    }
 
 
     // Spin the shotgun. For testing purposes.

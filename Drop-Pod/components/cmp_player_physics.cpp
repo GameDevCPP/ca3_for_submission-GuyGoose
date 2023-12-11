@@ -95,3 +95,19 @@ PlayerPhysicsComponent::PlayerPhysicsComponent(Entity* p,
   _body->SetBullet(true);
 }
 
+const vector<int> &PlayerPhysicsComponent::getLights() const {
+    return _lights;
+}
+
+void PlayerPhysicsComponent::setLights(const vector<int> &lights) {
+    _lights = lights;
+}
+
+void PlayerPhysicsComponent::addLight(int light) {
+    _lights.push_back(light);
+}
+
+void PlayerPhysicsComponent::removeLight(int light) {
+    _lights.erase(std::remove(_lights.begin(), _lights.end(), light), _lights.end());
+}
+

@@ -29,7 +29,7 @@ Vector2f LevelSystem::_offset(0.0f, 0.0f);
 vector<std::unique_ptr<sf::RectangleShape>> LevelSystem::_sprites;
 
 Texture LevelSystem::floorTexture;
-IntRect LevelSystem::floorTextureRect = { Vector2i(0, 0), Vector2i(32, 32) };
+IntRect LevelSystem::floorTextureRect = { Vector2i(64, 0), Vector2i(32, 32) };
 
 Texture LevelSystem::wallTexture;
 IntRect LevelSystem::wallTextureRect = { Vector2i(0, 0), Vector2i(32, 32) };
@@ -177,6 +177,7 @@ void LevelSystem::buildSprites(bool optimise) {
 
 		if (getTileAt(t.p) == 'f')
 		{
+            floorTexture.loadFromFile("res/img/tileset.png");
 			s->setTexture(&floorTexture);
 			s->setTextureRect(floorTextureRect);
 		}

@@ -7,6 +7,7 @@
 
 class ShotgunComponent : public Component {
 protected:
+    double fireTime = 0.0f;
 
 public:
     ShotgunComponent() = delete;

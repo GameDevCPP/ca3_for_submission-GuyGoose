@@ -8,6 +8,8 @@ protected:
   sf::Vector2f _maxVelocity;
   bool _grounded;
   float _groundspeed;
+  // Array of numbers to represent to represent lights
+  std::vector<int> _lights;
 
   bool isGrounded() const;
 
@@ -16,5 +18,13 @@ public:
 
   explicit PlayerPhysicsComponent(Entity* p, const sf::Vector2f& size);
 
-  PlayerPhysicsComponent() = delete;
+    const std::vector<int> &getLights() const;
+
+    void setLights(const std::vector<int> &lights);
+
+    void addLight(int light);
+
+    void removeLight(int light);
+
+    PlayerPhysicsComponent() = delete;
 };

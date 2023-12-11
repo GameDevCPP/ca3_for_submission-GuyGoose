@@ -12,20 +12,26 @@
 #include <iostream>
 #include <math.h>
 #include <thread>
+#include <utility>
 
 using namespace std;
 using namespace sf;
 
 // Constructor for the light component.
-LightComponent::LightComponent(Entity* p, const sf::Vector2f& size, shared_ptr<Entity> player) : PhysicsComponent(p, true, size)
+LightComponent::LightComponent(Entity* p, const sf::Vector2f& size, shared_ptr<Entity> player, int lightNum) : PhysicsComponent(p, true, size)
 {
     // Set the size of the light.
     _size = b2Vec2(size.x, size.y);
+    // Set the player.
+    _player = std::move(player);
+    // Set the light number.
+    _lightNum = lightNum;
 
     // Add a shape component to the light. This will be the light's sprite. A yellow slightly transparent circle.
     auto s = _parent->addComponent<ShapeComponent>();
     s->setShape<sf::CircleShape>(_size.x);
-    s->getShape().setFillColor(Color(255, 255, 0, 100));
+    // Set Color to #e5dacd
+    s->getShape().setFillColor(Color(229, 218, 205, 100));
     s->getShape().setOrigin(Vector2f(_size.x, _size.y));
 
 }
@@ -64,33 +70,43 @@ void LightComponent::update(double dt) {
     auto s = _parent->getComponent<ShapeComponent>();
     s->setScale(Vector2f(currentSize, currentSize));
     // Print the scale of the light.
-    cout << s->getScale() << endl;
+    // cout << s->getScale() << endl;
 
-    
+    // If the player is colliding with the light. Check if the players _lights vector is empty, if it is, add lightnumber to the vector. else, check if lightnumber is in vector, if so remove it.
+    if (isColliding(_player) && _player->getComponent<PlayerPhysicsComponent>()->getLights().empty()) {
+        _player->getComponent<PlayerPhysicsComponent>()->addLight(_lightNum);
+    }
+    else if (!isColliding(_player) && !_player->getComponent<PlayerPhysicsComponent>()->getLights().empty()) {
+        _player->getComponent<PlayerPhysicsComponent>()->removeLight(_lightNum);
+    }
+
+    // print player position
+    //cout << _player->getPosition().x << " " << _player->getPosition().y << endl;
 }
 
 void LightComponent::render() {
 }
 
 bool LightComponent::isColliding(shared_ptr<Entity> e){
+// Get the position of the player.
+    auto playerPos = e->getPosition();
     // Get the position of the light.
-    Vector2f lightPos = _parent->getPosition();
-    // Get the position of the entity.
-    Vector2f entityPos = e->getPosition();
-    // Get the distance between the light and the entity.
-    float distance = sqrt(pow((lightPos.x - entityPos.x), 2) + pow((lightPos.y - entityPos.y), 2));
-    // Get the size of the light.
-    float lightSize = _size.x;
-    // Get the size of the entity.
-    auto entitySize = e->getComponent<ShapeComponent>()->getShape().getLocalBounds().width;
-    // If the distance between the light and the entity is less than the size of the light plus the size of the entity.
-    if (distance < lightSize + entitySize) {
-        // Return true.
+    auto lightPos = _parent->getPosition();
+    // Get the distance between the player and the light.
+    auto distance = sqrt(pow(playerPos.x - lightPos.x, 2) + pow(playerPos.y - lightPos.y, 2));
+    // If the distance is less than the size of the light, return true.
+    if (distance < _size.x) {
         return true;
     }
-    // Otherwise return false.
-    return false;
+    // If the distance is greater than the size of the light, return false.
+    else {
+        return false;
+    }
 }
+
+
+
+
 
 
 

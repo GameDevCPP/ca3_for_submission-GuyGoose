@@ -5,6 +5,7 @@
 #include "../components/cmp_shotgun.h"
 #include "../components/cmp_light.h"
 #include "../components/cmp_text.h"
+#include "../components/cmp_bullet.h"
 #include <LevelSystem.h>
 #include <iostream>
 #include <thread>
@@ -19,7 +20,7 @@ static shared_ptr<Entity> light2;
 static shared_ptr<Entity> text;
 
 // inDarkness is a boolean that is true when the player is in darkness and false when the player is in light.
-static bool inDarkness = true;
+static shared_ptr<bool> inDarkness;
 
 void Level1Scene::Load() {
   cout << " Scene 1 Load" << endl;
@@ -27,6 +28,8 @@ void Level1Scene::Load() {
 
   auto ho = Engine::getWindowSize().y - (ls::getHeight() * 40.f);
   ls::setOffset(Vector2f(0, ho));
+
+  inDarkness = make_shared<bool>(true);
 
   // Create player
   {
@@ -58,17 +61,18 @@ void Level1Scene::Load() {
 
         // Create a shotgun component
         auto sc = shotgun->addComponent<ShotgunComponent>();
+        auto sp = shotgun->addComponent<ShootingComponent>();
     }
 
     {
         light = makeEntity();
-        auto s = light->addComponent<LightComponent>(Vector2f(100.f, 100.f), player);
+        auto s = light->addComponent<LightComponent>(Vector2f(100.f, 100.f), player, 1);
     }
 
     {
         light2 = makeEntity();
         light2->setPosition(Vector2f(Engine::GetWindow().getSize().x / 2.f, Engine::GetWindow().getSize().y));
-        auto s = light2->addComponent<LightComponent>(Vector2f(200.f, 200.f), player);
+        auto s = light2->addComponent<LightComponent>(Vector2f(200.f, 200.f), player, 2);
     }
 
     // Add text to the top middle of the screen that displays In Darkness: true/false
@@ -89,6 +93,15 @@ void Level1Scene::Load() {
       e->setPosition(pos);
       e->addComponent<PhysicsComponent>(false, Vector2f(40.f, 40.f));
     }
+
+      auto floors = ls::findTiles(ls::FLOOR);
+      for (auto w : floors) {
+          auto pos = ls::getTilePosition(w);
+          pos += Vector2f(20.f, 20.f); //offset to center
+          auto e = makeEntity();
+          e->setPosition(pos);
+          e->addComponent<PhysicsComponent>(false, Vector2f(40.f, 40.f));
+      }
   }
 
   //Simulate long loading times
@@ -113,8 +126,8 @@ void Level1Scene::Update(const double& dt) {
   Scene::Update(dt);
 
   // Show the shotgun shape and entity rotation
-    cout << "Shotgun shape rotation: " << shotgun->getComponent<ShapeComponent>()->getShape().getRotation() << endl;
-    cout << "Shotgun entity rotation: " << shotgun->getRotation() << endl;
+    //cout << "Shotgun shape rotation: " << shotgun->getComponent<ShapeComponent>()->getShape().getRotation() << endl;
+    //cout << "Shotgun entity rotation: " << shotgun->getRotation() << endl;
 
   // Set the shotguns entity rotation to the shotgun component rotation
     //shotgun->setRotation(shotgun->getComponent<ShotgunComponent>()->getRotation());
@@ -125,21 +138,10 @@ void Level1Scene::Update(const double& dt) {
     // Light follows mouse
     light->setPosition(Vector2f(Mouse::getPosition(Engine::GetWindow()).x, Mouse::getPosition(Engine::GetWindow()).y));
 
-    // If the light is colliding with the player
-    if (light2->getComponent<LightComponent>()->isColliding(player)) {
-        // Set inDarkness to false
-        inDarkness = false;
-    } else {
-        // Set inDarkness to true
-        inDarkness = true;
-    }
-
-    // If the player is in darkness
-    if (inDarkness) {
-        // Set the text to display In Darkness: true
+    // If the player lightlist is empty, set set text to true.
+    if (player->getComponent<PlayerPhysicsComponent>()->getLights().empty()) {
         text->getComponent<TextComponent>()->SetText("In Darkness: true");
     } else {
-        // Set the text to display In Darkness: false
         text->getComponent<TextComponent>()->SetText("In Darkness: false");
     }
 }
