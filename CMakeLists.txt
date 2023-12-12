@@ -77,6 +77,8 @@ add_executable(Drop_Pod ${SOURCES} ${RESOURCE_FILES}
         Drop-Pod/components/cmp_path_follow.h
         Drop-Pod/components/cmp_path_follow.cpp
         Drop-Pod/scenes/scene_level2.cpp
+        Drop-Pod/components/cmp_player_anim.h
+        Drop-Pod/components/cmp_player_anim.cpp
 )
 source_group("components" FILES ${CMPNTS})
 source_group("resources" FILES ${RESOURCE_FILES})

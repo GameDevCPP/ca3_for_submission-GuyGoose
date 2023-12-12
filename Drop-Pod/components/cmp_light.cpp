@@ -4,7 +4,6 @@
 #include "system_physics.h"
 #include "cmp_physics.h"
 #include "ecm.h"
-// Circle shape
 #include <SFML/Graphics/CircleShape.hpp>
 #include "../components/cmp_sprite.h"
 #include "cmp_player_physics.h"
@@ -33,6 +32,10 @@ LightComponent::LightComponent(Entity* p, const sf::Vector2f& size, shared_ptr<E
     // Set Color to #e5dacd
     s->getShape().setFillColor(Color(229, 218, 205, 100));
     s->getShape().setOrigin(Vector2f(_size.x, _size.y));
+    // Set shape to have no collision.
+    //s->getShape().setOutlineThickness(0);
+    // Set the box2d body of the light to have no collision.
+    _body->GetFixtureList()->SetSensor(true);
 
 }
 
