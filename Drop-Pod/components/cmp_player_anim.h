@@ -8,8 +8,9 @@
 class PlayerAnimatorComponent : public Component {
 
 protected:
-    bool _flip = false;
-    bool _moving = false;
+    std::shared_ptr<SpriteComponent> sprite;
+    std::shared_ptr<AnimationComponent> anim;
+    sf::IntRect playerRect;
 public:
     PlayerAnimatorComponent() = delete;
 

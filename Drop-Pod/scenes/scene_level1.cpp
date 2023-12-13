@@ -51,11 +51,13 @@ void Level1Scene::Load() {
     player->addTag("player");
 
     player->addComponent<PlayerPhysicsComponent>(Vector2f(20.f, 30.f));
-    // Player animation component
+    // Player animation stuff
+    auto s2 = player->addComponent<SpriteComponent>();
+    s2->getSprite().setOrigin(Vector2f(15.f, 15.f));
     auto anim = player->addComponent<AnimationComponent>();
-    auto playerRect = IntRect(0, 0, 32, 32);
-    anim->setAnimation(4,0.1,Resources::get<Texture>("run.png"),playerRect);
-    //auto a = player->addComponent<PlayerAnimatorComponent>();
+//    auto playerRect = IntRect(0, 0, 32, 32);
+//    anim->setAnimation(4,0.1,Resources::get<Texture>("idle.png"),playerRect);
+    auto a = player->addComponent<PlayerAnimatorComponent>();
   }
 
   // Add shotgun attachment to player
