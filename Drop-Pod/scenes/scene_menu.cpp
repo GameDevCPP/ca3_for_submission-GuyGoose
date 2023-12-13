@@ -13,6 +13,9 @@ void MenuScene::Load() {
     auto txt = makeEntity();
     auto t = txt->addComponent<TextComponent>(
         "Platformer\nPress Space to Start");
+    // Set to center of screen
+
+
   }
   setLoaded(true);
 }
@@ -21,7 +24,7 @@ void MenuScene::Update(const double& dt) {
   // cout << "Menu Update "<<dt<<"\n";
 
   if (sf::Keyboard::isKeyPressed(Keyboard::Space)) {
-    Engine::ChangeScene(&level1);
+    Engine::ChangeScene(&level2);
   }
 
   Scene::Update(dt);

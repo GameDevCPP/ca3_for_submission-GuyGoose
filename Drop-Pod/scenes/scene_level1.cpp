@@ -55,50 +55,45 @@ void Level1Scene::Load() {
     auto s2 = player->addComponent<SpriteComponent>();
     s2->getSprite().setOrigin(Vector2f(15.f, 15.f));
     auto anim = player->addComponent<AnimationComponent>();
-//    auto playerRect = IntRect(0, 0, 32, 32);
-//    anim->setAnimation(4,0.1,Resources::get<Texture>("idle.png"),playerRect);
     auto a = player->addComponent<PlayerAnimatorComponent>();
   }
 
   // Add shotgun attachment to player
-    {
-        shotgun = makeEntity();
-        // Set to center of screen for now
-        shotgun->setPosition(Vector2f(Engine::GetWindow().getSize().x / 2.f, Engine::GetWindow().getSize().y / 2.f));
-        // Create a sprite component, set origin to the player's center and the sprite be offset to the right
-//        auto s = shotgun->addComponent<ShapeComponent>();
-//        s->setShape<sf::RectangleShape>(Vector2f(20.f, 5.f));
-//        s->getShape().setFillColor(Color::White);
-//        s->getShape().setOrigin(Vector2f(-25, 2.5));
-//        s->getShape().setPosition(Vector2f(100.f, 100.f));
-        auto s = shotgun->addComponent<SpriteComponent>();
-        s->setTexture(Resources::get<Texture>("Arrow.png"));
-        s->getSprite().setOrigin(Vector2f(-25.f, 15.f));
-        s->getSprite().setPosition(Vector2f(100.f, 100.f));
+//    {
+//        shotgun = makeEntity();
+//        // Set to center of screen for now
+//        shotgun->setPosition(Vector2f(Engine::GetWindow().getSize().x / 2.f, Engine::GetWindow().getSize().y / 2.f));
+//        // Create a sprite component, set origin to the player's center and the sprite be offset to the right
+////        auto s = shotgun->addComponent<ShapeComponent>();
+////        s->setShape<sf::RectangleShape>(Vector2f(20.f, 5.f));
+////        s->getShape().setFillColor(Color::White);
+////        s->getShape().setOrigin(Vector2f(-25, 2.5));
+////        s->getShape().setPosition(Vector2f(100.f, 100.f));
+//        auto s = shotgun->addComponent<SpriteComponent>();
+//        s->setTexture(Resources::get<Texture>("Arrow.png"));
+//        s->getSprite().setOrigin(Vector2f(-25.f, 15.f));
+//        s->getSprite().setPosition(Vector2f(100.f, 100.f));
+//
+//        // Create a shotgun component
+//        auto sc = shotgun->addComponent<ShotgunComponent>();
+//        auto sp = shotgun->addComponent<ShootingComponent>();
+//    }
 
-        // Create a shotgun component
-        auto sc = shotgun->addComponent<ShotgunComponent>();
-        auto sp = shotgun->addComponent<ShootingComponent>();
-    }
-
-    {
-        light = makeEntity();
-        auto s = light->addComponent<LightComponent>(Vector2f(100.f, 100.f), player, 1);
-    }
-
-    {
-        lightpath = makeEntity();
-        // Vector of points for the path to follow.
-        vector<Vector2f> points;
-        // Add points to the vector.
-        points.push_back(Vector2f(100.f, 100.f));
-        points.push_back(Vector2f(200.f, 100.f));
-        points.push_back(Vector2f(200.f, 200.f));
-        points.push_back(Vector2f(100.f, 200.f));
-        // Add a path follow component to the lightpath entity.
-        auto pf = lightpath->addComponent<PathComponent>(points, 100.f, light);
-
-    }
+//    {
+//        light = makeEntity();
+//        auto s = light->addComponent<LightComponent>(Vector2f(100.f, 100.f), player, 100);
+//    }
+//
+//    {
+//        lightpath = makeEntity();
+//        // Vector of points for the path to follow.
+//        vector<Vector2f> points;
+//        // Add points to the vector.
+//
+//        // Add a path follow component to the lightpath entity.
+//        auto pf = lightpath->addComponent<PathComponent>(points, 100.f, light);
+//
+//    }
 
     {
 //        light2 = makeEntity();
@@ -145,7 +140,7 @@ void Level1Scene::Load() {
             pos += Vector2f(20.f, 20.f);
           auto e = makeEntity();
           e->setPosition(pos);
-          e->addComponent<LightComponent>(Vector2f(100.f, 100.f), player, 0);
+          e->addComponent<LightComponent>(Vector2f(100.f, 100.f), player, lightNum);
           lightNum++;
           // Add the new light to the vector of lights. (static vector<shared_ptr<Entity>> lights;)
             Level1Scene::lights.push_back(e);
@@ -176,7 +171,7 @@ void Level1Scene::Update(const double& dt) {
   Scene::Update(dt);
 
   // Shotgun attachment follows player (Players position + 10 pixels to the right)
-    shotgun->setPosition(player->getPosition() + Vector2f(0.f, 0.f));
+    //shotgun->setPosition(player->getPosition() + Vector2f(0.f, 0.f));
 
     // Light follows mouse
     //light->setPosition(Vector2f(Mouse::getPosition(Engine::GetWindow()).x, Mouse::getPosition(Engine::GetWindow()).y));

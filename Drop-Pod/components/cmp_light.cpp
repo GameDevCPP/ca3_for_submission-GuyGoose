@@ -78,9 +78,13 @@ void LightComponent::update(double dt) {
     // If the player is colliding with the light. Check if the players _lights vector is empty, if it is, add lightnumber to the vector. else, check if lightnumber is in vector, if so remove it.
     if (isColliding(_player) && _player->getComponent<PlayerPhysicsComponent>()->getLights().empty()) {
         _player->getComponent<PlayerPhysicsComponent>()->addLight(_lightNum);
+        // Debug print the lights vector.
+        cout << "Lights: " << _player->getComponent<PlayerPhysicsComponent>()->getLights() << endl;
     }
     else if (!isColliding(_player) && !_player->getComponent<PlayerPhysicsComponent>()->getLights().empty()) {
         _player->getComponent<PlayerPhysicsComponent>()->removeLight(_lightNum);
+        // Debug print the lights vector.
+        cout << "Lights: " << _player->getComponent<PlayerPhysicsComponent>()->getLights() << endl;
     }
 
     // print player position
