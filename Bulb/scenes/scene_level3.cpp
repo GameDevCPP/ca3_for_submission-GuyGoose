@@ -18,7 +18,7 @@ using namespace std;
 using namespace sf;
 
 
-static shared_ptr<Entity> shotgun;
+static shared_ptr<Entity> pointerArrow;
 static shared_ptr<Entity> timerText;
 static shared_ptr<Entity> player;
 static shared_ptr<Entity> light;
@@ -69,25 +69,25 @@ void Level3Scene::Load() {
     }
 
     // Add pointerArrow attachment to player
-//    {
-//        pointerArrow = makeEntity();
-//        // Set to center of screen for now
-//        pointerArrow->setPosition(Vector2f(Engine::GetWindow().getSize().x / 2.f, Engine::GetWindow().getSize().y / 2.f));
-//        // Create a sprite component, set origin to the player's center and the sprite be offset to the right
-////        auto s = pointerArrow->addComponent<ShapeComponent>();
-////        s->setShape<sf::RectangleShape>(Vector2f(20.f, 5.f));
-////        s->getShape().setFillColor(Color::White);
-////        s->getShape().setOrigin(Vector2f(-25, 2.5));
-////        s->getShape().setPosition(Vector2f(100.f, 100.f));
-//        auto s = pointerArrow->addComponent<SpriteComponent>();
-//        s->setTexture(Resources::get<Texture>("Arrow.png"));
-//        s->getSprite().setOrigin(Vector2f(-25.f, 15.f));
-//        s->getSprite().setPosition(Vector2f(100.f, 100.f));
-//
-//        // Create a pointerArrow component
-//        auto sc = pointerArrow->addComponent<PointerComponent>();
-//        auto sp = pointerArrow->addComponent<ShootingComponent>();
-//    }
+    {
+        pointerArrow = makeEntity();
+        // Set to center of screen for now
+        pointerArrow->setPosition(Vector2f(Engine::GetWindow().getSize().x / 2.f, Engine::GetWindow().getSize().y / 2.f));
+        // Create a sprite component, set origin to the player's center and the sprite be offset to the right
+//        auto s = pointerArrow->addComponent<ShapeComponent>();
+//        s->setShape<sf::RectangleShape>(Vector2f(20.f, 5.f));
+//        s->getShape().setFillColor(Color::White);
+//        s->getShape().setOrigin(Vector2f(-25, 2.5));
+//        s->getShape().setPosition(Vector2f(100.f, 100.f));
+        auto s = pointerArrow->addComponent<SpriteComponent>();
+        s->setTexture(Resources::get<Texture>("Arrow.png"));
+        s->getSprite().setOrigin(Vector2f(-25.f, 15.f));
+        s->getSprite().setPosition(Vector2f(100.f, 100.f));
+
+        // Create a pointerArrow component
+        auto sc = pointerArrow->addComponent<PointerComponent>();
+        auto sp = pointerArrow->addComponent<ShootingComponent>();
+    }
 
     {
         light = makeEntity();
@@ -180,11 +180,11 @@ void Level3Scene::UnLoad() {
 void Level3Scene::Update(const double& dt) {
 
     if (ls::getTileAt(player->getPosition()) == ls::END) {
-        Engine::ChangeScene(&menu);
+        Engine::ChangeScene(&end_game);
     }
 
     // Shotgun attachment follows player (Players position + 10 pixels to the right)
-    //pointerArrow->setPosition(player->getPosition() + Vector2f(0.f, 0.f));
+    pointerArrow->setPosition(player->getPosition() + Vector2f(0.f, 0.f));
 
     // Light follows mouse
     //light->setPosition(Vector2f(Mouse::getPosition(Engine::GetWindow()).x, Mouse::getPosition(Engine::GetWindow()).y));
@@ -199,7 +199,7 @@ void Level3Scene::Update(const double& dt) {
     if (player->getComponent<PlayerPhysicsComponent>()->getLights().empty()) {
         timeRemaining -= dt;
         if (timeRemaining <= 0) {
-            Engine::ChangeScene((Scene*)&menu);
+            Engine::ChangeScene((Scene*)&game_over);
         }
     } else {
         timeRemaining = baseTime;

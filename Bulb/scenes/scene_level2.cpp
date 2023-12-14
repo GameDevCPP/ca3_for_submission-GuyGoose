@@ -196,7 +196,7 @@ void Level2Scene::Update(const double& dt) {
     if (player->getComponent<PlayerPhysicsComponent>()->getLights().empty()) {
         timeRemaining -= dt;
         if (timeRemaining <= 0) {
-            Engine::ChangeScene((Scene*)&menu);
+            Engine::ChangeScene((Scene*)&game_over);
         }
     } else {
         timeRemaining = baseTime;

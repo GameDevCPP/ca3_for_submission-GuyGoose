@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 3.11)
 set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-project(Drop-Pod)
+project(Bulb)
 
 #### Setup Directories ####
 #Main output directory
@@ -59,28 +59,28 @@ target_link_libraries(lib_ecm PRIVATE lib_maths)
 
 ################### Add Practicals Below ##########################
 
-###### Drop-Pod #######
+###### Bulb #######
 
-file(GLOB_RECURSE SOURCES Drop-Pod/*.cpp Drop-Pod/*.h)
-file(GLOB_RECURSE CMPNTS Drop-Pod/components/*.cpp Drop-Pod/components/*.h)
-file(GLOB_RECURSE SCENES Drop-Pod/scenes/*.cpp Drop-Pod/scenes/*.h)
+file(GLOB_RECURSE SOURCES Bulb/*.cpp Bulb/*.h)
+file(GLOB_RECURSE CMPNTS Bulb/components/*.cpp Bulb/components/*.h)
+file(GLOB_RECURSE SCENES Bulb/scenes/*.cpp Bulb/scenes/*.h)
 add_executable(Drop_Pod ${SOURCES} ${RESOURCE_FILES}
-        Drop-Pod/platformer_main.cpp
-        Drop-Pod/components/cmp_player_physics.cpp
-        Drop-Pod/components/cmp_physics.cpp
-        Drop-Pod/components/cmp_pointer.cpp
-        Drop-Pod/components/cmp_pointer.h
-        Drop-Pod/components/cmp_bullet.h
-        Drop-Pod/components/cmp_bullet.cpp
-        Drop-Pod/components/cmp_light.h
-        Drop-Pod/components/cmp_light.cpp
-        Drop-Pod/components/cmp_path_follow.h
-        Drop-Pod/components/cmp_path_follow.cpp
-        Drop-Pod/scenes/scene_level2.cpp
-        Drop-Pod/components/cmp_player_anim.h
-        Drop-Pod/components/cmp_player_anim.cpp
-        Drop-Pod/scenes/scene_level3.cpp
-        Drop-Pod/scenes/scene_level3.h
+        Bulb/platformer_main.cpp
+        Bulb/components/cmp_player_physics.cpp
+        Bulb/components/cmp_physics.cpp
+        Bulb/components/cmp_pointer.cpp
+        Bulb/components/cmp_pointer.h
+        Bulb/components/cmp_bullet.h
+        Bulb/components/cmp_bullet.cpp
+        Bulb/components/cmp_light.h
+        Bulb/components/cmp_light.cpp
+        Bulb/components/cmp_path_follow.h
+        Bulb/components/cmp_path_follow.cpp
+        Bulb/scenes/scene_level2.cpp
+        Bulb/components/cmp_player_anim.h
+        Bulb/components/cmp_player_anim.cpp
+        Bulb/scenes/scene_level3.cpp
+        Bulb/scenes/scene_level3.h
 )
 source_group("components" FILES ${CMPNTS})
 source_group("resources" FILES ${RESOURCE_FILES})
