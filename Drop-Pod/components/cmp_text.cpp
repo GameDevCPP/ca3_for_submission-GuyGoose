@@ -11,9 +11,11 @@ TextComponent::TextComponent(Entity* const p, const std::string& str)
   _text.setString(_string);
   _font = Resources::get<sf::Font>("RobotoMono-Regular.ttf");
   _text.setFont(*_font);
+  _text.setPosition(_parent->getPosition());
 }
 
 void TextComponent::SetText(const std::string& str) {
   _string = str;
   _text.setString(_string);
+  _text.setPosition(_parent->getPosition());
 }

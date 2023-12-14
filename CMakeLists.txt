@@ -68,8 +68,8 @@ add_executable(Drop_Pod ${SOURCES} ${RESOURCE_FILES}
         Drop-Pod/platformer_main.cpp
         Drop-Pod/components/cmp_player_physics.cpp
         Drop-Pod/components/cmp_physics.cpp
-        Drop-Pod/components/cmp_shotgun.cpp
-        Drop-Pod/components/cmp_shotgun.h
+        Drop-Pod/components/cmp_pointer.cpp
+        Drop-Pod/components/cmp_pointer.h
         Drop-Pod/components/cmp_bullet.h
         Drop-Pod/components/cmp_bullet.cpp
         Drop-Pod/components/cmp_light.h
@@ -79,6 +79,8 @@ add_executable(Drop_Pod ${SOURCES} ${RESOURCE_FILES}
         Drop-Pod/scenes/scene_level2.cpp
         Drop-Pod/components/cmp_player_anim.h
         Drop-Pod/components/cmp_player_anim.cpp
+        Drop-Pod/scenes/scene_level3.cpp
+        Drop-Pod/scenes/scene_level3.h
 )
 source_group("components" FILES ${CMPNTS})
 source_group("resources" FILES ${RESOURCE_FILES})

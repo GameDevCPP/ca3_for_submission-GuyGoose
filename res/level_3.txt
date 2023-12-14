@@ -1,18 +1,18 @@
-w                       www    w
-w                      w   w   w
-w                        r     w
+wwww                        wwww
+ww                            ww
 w                              w
+w                          l   w
 w                              w
 w                         ww   w
-w                        wwwwwew
+w                        www e w
 w                      wwwwwwwww
-w                     w        |
-w                    w         |
-w                   w          |
-w                  w           |
-w            www ww            |
-w           w   w              |
-w          w                   |
-w s       w                    |
-w  w     ww                    |
+w                     f        |
+w                    f         |
+w                   f          |
+w                  f           |
+w            ff  ff            |
+w           f                  |
+w l        f                   |
+w         w                    |
+ws       ww                    |
 wwww   wwww                    |

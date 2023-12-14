@@ -71,7 +71,7 @@ void Bullet::init() {
 }
 
 void Bullet::setAngle(float a, Bullet &b) {
-    // Add a tiny varience to the angle to better simulate a shotgun. Between +- 5 degrees.
+    // Add a tiny varience to the angle to better simulate a pointerArrow. Between +- 5 degrees.
     b.angle = a + ((rand() % 10) - 5) * 0.0174533;
 }
 

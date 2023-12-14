@@ -4,7 +4,9 @@
 
 class MenuScene : public Scene {
 public:
+
   MenuScene() = default;
+
   ~MenuScene() override = default;
 
   void Load() override;

@@ -2,7 +2,7 @@
 #include "../components/cmp_player_physics.h"
 #include "../components/cmp_sprite.h"
 #include "../game.h"
-#include "../components/cmp_shotgun.h"
+#include "../components/cmp_pointer.h"
 #include "../components/cmp_light.h"
 #include "../components/cmp_text.h"
 #include "../components/cmp_bullet.h"
@@ -12,12 +12,13 @@
 #include <LevelSystem.h>
 #include <iostream>
 #include <thread>
+#include <fstream>
 
 using namespace std;
 using namespace sf;
 
 
-static shared_ptr<Entity> shotgun;
+static shared_ptr<Entity> pointerArrow;
 static shared_ptr<Entity> timerText;
 static shared_ptr<Entity> player;
 static shared_ptr<Entity> light;
@@ -31,6 +32,14 @@ static float timeRemaining = 5.f;
 void Level1Scene::Load() {
   cout << " Scene 1 Load" << endl;
   ls::loadLevelFile("res/level_1.txt", 40.0f);
+
+  // Write the level number to a file.
+    auto levelNum = 1;
+    ofstream myfile;
+    myfile.open ("res/level.txt");
+    myfile << levelNum;
+    myfile.close();
+
 
   auto ho = Engine::getWindowSize().y - (ls::getHeight() * 40.f);
   ls::setOffset(Vector2f(0, ho));
@@ -58,25 +67,25 @@ void Level1Scene::Load() {
     auto a = player->addComponent<PlayerAnimatorComponent>();
   }
 
-  // Add shotgun attachment to player
+  // Add pointerArrow attachment to player
 //    {
-//        shotgun = makeEntity();
+//        pointerArrow = makeEntity();
 //        // Set to center of screen for now
-//        shotgun->setPosition(Vector2f(Engine::GetWindow().getSize().x / 2.f, Engine::GetWindow().getSize().y / 2.f));
+//        pointerArrow->setPosition(Vector2f(Engine::GetWindow().getSize().x / 2.f, Engine::GetWindow().getSize().y / 2.f));
 //        // Create a sprite component, set origin to the player's center and the sprite be offset to the right
-////        auto s = shotgun->addComponent<ShapeComponent>();
+////        auto s = pointerArrow->addComponent<ShapeComponent>();
 ////        s->setShape<sf::RectangleShape>(Vector2f(20.f, 5.f));
 ////        s->getShape().setFillColor(Color::White);
 ////        s->getShape().setOrigin(Vector2f(-25, 2.5));
 ////        s->getShape().setPosition(Vector2f(100.f, 100.f));
-//        auto s = shotgun->addComponent<SpriteComponent>();
+//        auto s = pointerArrow->addComponent<SpriteComponent>();
 //        s->setTexture(Resources::get<Texture>("Arrow.png"));
 //        s->getSprite().setOrigin(Vector2f(-25.f, 15.f));
 //        s->getSprite().setPosition(Vector2f(100.f, 100.f));
 //
-//        // Create a shotgun component
-//        auto sc = shotgun->addComponent<ShotgunComponent>();
-//        auto sp = shotgun->addComponent<ShootingComponent>();
+//        // Create a pointerArrow component
+//        auto sc = pointerArrow->addComponent<PointerComponent>();
+//        //auto sp = pointerArrow->addComponent<ShootingComponent>();
 //    }
 
 //    {
@@ -156,8 +165,8 @@ void Level1Scene::Load() {
 
 void Level1Scene::UnLoad() {
   cout << "Scene 1 Unload" << endl;
-  player.reset();
-  // Remove all lights from the vector of lights.
+//  player.reset();
+//  timerText.reset();
   Level1Scene::lights.clear();
   ls::unload();
   Scene::UnLoad();
@@ -168,19 +177,18 @@ void Level1Scene::Update(const double& dt) {
   if (ls::getTileAt(player->getPosition()) == ls::END) {
     Engine::ChangeScene(&level2);
   }
-  Scene::Update(dt);
 
   // Shotgun attachment follows player (Players position + 10 pixels to the right)
-    //shotgun->setPosition(player->getPosition() + Vector2f(0.f, 0.f));
+    //pointerArrow->setPosition(player->getPosition() + Vector2f(0.f, 0.f));
 
     // Light follows mouse
     //light->setPosition(Vector2f(Mouse::getPosition(Engine::GetWindow()).x, Mouse::getPosition(Engine::GetWindow()).y));
 
-    // Update the timer text to display the time remaining. format: "Time Remaining: 3.00" (rounded to 2 decimal places)
-    timerText->getComponent<TextComponent>()->SetText("Time Remaining: " + to_string(timeRemaining).substr(0, 4));
+    // Update the timer text to display the time remaining. format: "Time Remaining: 3
+    timerText->getComponent<TextComponent>()->SetText( to_string(timeRemaining).substr(0, 3));
 
     // Display the time above the player.
-    timerText->setPosition(player->getPosition() + Vector2f(0.f, -50.f));
+    timerText->setPosition(player->getPosition() + Vector2f(-25.f, -50.f));
 
     // Timer of 3 seconds. If the player is in darkness for 3 seconds, go to the menu scene.
     if (player->getComponent<PlayerPhysicsComponent>()->getLights().empty()) {
@@ -192,6 +200,7 @@ void Level1Scene::Update(const double& dt) {
         timeRemaining = baseTime;
     }
 
+    Scene::Update(dt);
 }
 
 void Level1Scene::Render() {

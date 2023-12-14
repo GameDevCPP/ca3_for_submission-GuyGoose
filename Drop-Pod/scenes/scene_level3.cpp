@@ -1,4 +1,4 @@
-#include "scene_level2.h"
+#include "scene_level3.h"
 #include "../components/cmp_player_physics.h"
 #include "../components/cmp_sprite.h"
 #include "../game.h"
@@ -29,18 +29,18 @@ static float baseTime = 5.f;
 static float timeRemaining = 5.f;
 
 
-void Level2Scene::Load() {
-    cout << " Scene 2 Load" << endl;
-    ls::loadLevelFile("res/level_2.txt", 40.0f);
+void Level3Scene::Load() {
+    cout << " Scene 3 Load" << endl;
+    ls::loadLevelFile("res/level_3.txt", 40.0f);
 
     // Write the level number to a file.
-    auto levelNum = 2;
+    auto levelNum = 3;
     ofstream myfile;
     myfile.open ("res/level.txt");
     myfile << levelNum;
     myfile.close();
 
-    cout << "Scene 2 Loaded" << endl;
+    cout << "Scene 3 Loaded" << endl;
 
     auto ho = Engine::getWindowSize().y - (ls::getHeight() * 40.f);
     ls::setOffset(Vector2f(0, ho));
@@ -91,7 +91,7 @@ void Level2Scene::Load() {
 
     {
         light = makeEntity();
-        auto s = light->addComponent<LightComponent>(Vector2f(150.f, 150.f), player, 100);
+        auto s = light->addComponent<LightComponent>(Vector2f(100.f, 100.f), player, 100);
     }
 
     {
@@ -99,8 +99,11 @@ void Level2Scene::Load() {
         // Vector of points for the path to follow.
         vector<Vector2f> points;
         // Add points to the vector.
-        points.push_back(Vector2f(Engine::GetWindow().getSize().x/2, -50.f));
-        points.push_back(Vector2f(Engine::GetWindow().getSize().x/2, Engine::GetWindow().getSize().y+50));
+        points.push_back(Vector2f(50.f,650.f));
+        points.push_back(Vector2f(350.f,650.f));
+        points.push_back(Vector2f(500.f,450.f));
+        points.push_back(Vector2f(700.f,450.f));
+        points.push_back(Vector2f(1050.f,150.f));
         // Add a path follow component to the lightpath entity.
         auto pf = lightpath->addComponent<PathComponent>(points, 100.f, light);
 
@@ -154,30 +157,30 @@ void Level2Scene::Load() {
             e->addComponent<LightComponent>(Vector2f(100.f, 100.f), player, lightNum);
             lightNum++;
             // Add the new light to the vector of lights. (static vector<shared_ptr<Entity>> lights;)
-            Level2Scene::lights.push_back(e);
+            Level3Scene::lights.push_back(e);
         }
     }
 
     //Simulate long loading times
     std::this_thread::sleep_for(std::chrono::milliseconds(500));
-    cout << " Scene 2 Load Done" << endl;
+    cout << " Scene 3 Load Done" << endl;
 
     setLoaded(true);
 }
 
-void Level2Scene::UnLoad() {
-    cout << "Scene 2 Unload" << endl;
+void Level3Scene::UnLoad() {
+    cout << "Scene 3 Unload" << endl;
 //    player.reset();
 //    timerText.reset();
-    Level2Scene::lights.clear();
+    Level3Scene::lights.clear();
     ls::unload();
     Scene::UnLoad();
 }
 
-void Level2Scene::Update(const double& dt) {
+void Level3Scene::Update(const double& dt) {
 
     if (ls::getTileAt(player->getPosition()) == ls::END) {
-        Engine::ChangeScene(&level3);
+        Engine::ChangeScene(&menu);
     }
 
     // Shotgun attachment follows player (Players position + 10 pixels to the right)
@@ -202,10 +205,13 @@ void Level2Scene::Update(const double& dt) {
         timeRemaining = baseTime;
     }
 
+    // Debug : Print the mouse position
+    cout << "Mouse Position: " << Mouse::getPosition(Engine::GetWindow()).x << ", " << Mouse::getPosition(Engine::GetWindow()).y << endl;
+
     Scene::Update(dt);
 }
 
-void Level2Scene::Render() {
+void Level3Scene::Render() {
     ls::render(Engine::GetWindow());
     Scene::Render();
 }

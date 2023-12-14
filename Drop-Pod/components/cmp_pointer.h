@@ -5,14 +5,14 @@
 #include "ecm.h"
 #include <Box2D/Dynamics/b2Body.h>
 
-class ShotgunComponent : public Component {
+class PointerComponent : public Component {
 protected:
     double fireTime = 0.0f;
 
 public:
-    ShotgunComponent() = delete;
+    PointerComponent() = delete;
 
-    explicit ShotgunComponent(Entity* p);
+    explicit PointerComponent(Entity* p);
 
     void update(double dt) override;
 
@@ -22,5 +22,5 @@ public:
     // Get rotation
     float getRotation() const;
 
-    ~ShotgunComponent() override = default;
+    ~PointerComponent() override = default;
 };
