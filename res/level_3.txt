@@ -14,5 +14,5 @@ w            ff  ff            |
 w           f                  |
 w l        f                   |
 w         w                    |
-w s     eww                    |
+w  s     ww                    |
 wwww   wwww                    |
